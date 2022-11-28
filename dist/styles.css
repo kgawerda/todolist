@@ -124,3 +124,19 @@ h1 {
 .sort-btn{
     width: fit-content;
 }
+.checkdiv{
+    border: 2px solid #160f13;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.checkdiv.not-done{
+    background-color: rgb(87, 86, 86);
+}
+.checkdiv.done{
+    background-color: greenyellow;
+}
+.task.done .titlediv{
+    text-decoration: line-through;
+    text-decoration-thickness: 0.2rem;
+}

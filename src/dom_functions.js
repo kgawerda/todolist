@@ -32,11 +32,9 @@ function createTask(task) {
     if (task.isDone()) {
         checkeddiv.classList.add('done');
         taskdiv.classList.add('done');
-        checkeddiv.textContent = 'Done';
     } else {
         checkeddiv.classList.add('not-done');
         taskdiv.classList.add('not-done');
-        checkeddiv.textContent = 'Not done';
     }
 
 
@@ -136,6 +134,7 @@ function addEventListenerToTask(task, project) {
     const deletebtn = taskdiv.querySelector('.delete-btn');
     const editbtn = taskdiv.querySelector('.edit-btn');
     const detailsbtn = taskdiv.querySelector('.details-btn');
+    const checkdiv = taskdiv.querySelector('.checkdiv');
 
     deletebtn.addEventListener('click', function (e) {
         project.deleteTask(task.getName());
@@ -146,6 +145,20 @@ function addEventListenerToTask(task, project) {
     });
     detailsbtn.addEventListener('click', function () {
 
+    });
+    checkdiv.addEventListener('click', function () {
+        task.toggleDone();
+        if (checkdiv.classList.contains('done')) {
+            checkdiv.classList.add('not-done');
+            taskdiv.classList.add('not-done');
+            checkdiv.classList.remove('done');
+            taskdiv.classList.remove('done');
+        } else{
+            checkdiv.classList.add('done');
+            taskdiv.classList.add('done');
+            checkdiv.classList.remove('not-done');
+            taskdiv.classList.remove('not-done');
+        }
     });
 
 
