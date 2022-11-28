@@ -23,6 +23,35 @@
             <button id="add-project-btn">Add Project</button>
         </nav>
         <div class="project-div"></div>
+        <form id="task-form">
+            <div class="input-div">
+                <div class="input">
+                    <label for="name">Title (*)</label>
+                    <input type="text" name="name" id="name" placeholder="Cleaning" required>
+                </div>
+                <div class="input">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" placeholder="Take out the trash">
+                </div>
+                <div class="input">
+                    <label for="date">Date (*)</label>
+                    <input type="date" name="date" id="date" required>
+                </div>
+                <div class="input">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority">
+                        <option value="high">High</option>
+                        <option value="medium">medium</option>
+                        <option value="low">low</option>
+                    </select>
+                </div>
+                <div class="checkbox">
+                    <label for="done">Did you do it already?</label>
+                    <input type="checkbox" name="done" id="done">
+                </div>
+                <button class="form-btn" type="submit">Add task</button>
+            </div>
+        </form>
     </div>
     <div class="footer">Copyright © 2022 Konrad Gawerda</div>
 
