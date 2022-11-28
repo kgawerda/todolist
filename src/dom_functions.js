@@ -1,6 +1,6 @@
 import Task from "./task.js"
 import Project from "./project"
-import { de } from "date-fns/locale";
+
 
 function createTask(task) {
     const projectDiv = document.querySelector('.project-div');
@@ -65,7 +65,7 @@ function createTask(task) {
     taskdiv.appendChild(leftdiv);
     taskdiv.appendChild(rightdiv);
 
-    projectDiv.appendChild(taskdiv);
+    projectDiv.lastChild.before(taskdiv);
 }
 
 function renderProject(project) {
@@ -81,6 +81,13 @@ function renderProject(project) {
     projectTitle.textContent = project.getName();
     projectDiv.appendChild(titlediv);
     projectDiv.id = project.getName().replace(/\s/g, "");
+
+    const addbtn = document.createElement('button');
+
+    addbtn.classList.add('add-task-btn');
+    
+    addbtn.textContent = '+ Add task';
+    projectDiv.appendChild(addbtn);
 
     renderTasks(project);
 
@@ -118,7 +125,9 @@ function renderProject(project) {
         }
     });
     titlediv.appendChild(sortbtn);
-
+    addbtn.addEventListener('click', function () {
+        renderForm(project);
+    });
 }
 
 function renderTasks(project) {
@@ -126,6 +135,7 @@ function renderTasks(project) {
         createTask(task);
         addEventListenerToTask(task, project);
     });
+
 }
 
 
@@ -153,7 +163,7 @@ function addEventListenerToTask(task, project) {
             taskdiv.classList.add('not-done');
             checkdiv.classList.remove('done');
             taskdiv.classList.remove('done');
-        } else{
+        } else {
             checkdiv.classList.add('done');
             taskdiv.classList.add('done');
             checkdiv.classList.remove('not-done');
@@ -166,11 +176,23 @@ function addEventListenerToTask(task, project) {
 
 function derenderTasks() {
     const tasks = document.querySelectorAll('.task');
-    tasks.forEach((task) => task.remove())
-    /*
-    while (projectDiv.firstChild-1) {
-        projectDiv.removeChild(projectDiv.lastChild);
-    }*/
+    tasks.forEach((task) => task.remove());
+}
+
+function renderForm(project) {
+    const form=document.querySelector('#task-form');
+    form.style.display='block';
+    form.onsubmit = function(){
+        const name = form.elements['name'].value;
+        const description = form.elements['description'].value;
+        const date = form.elements['date'].value;
+        const priority = parseInt(form.elements['priority'].value);
+        const done = form.elements['done'].checked;
+        let task=new Task(name,description,new Date(date), priority, done);
+        project.addTask(task);
+        createTask(task);
+        form.style.display='none';
+    };
 }
 
 export default renderProject

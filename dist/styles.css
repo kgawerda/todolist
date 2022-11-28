@@ -29,7 +29,7 @@ body {
     padding: 5px;
 }
 
-nav button, .sort-btn {
+nav button, .sort-btn, .form-btn{
     margin-left: 5%;
     margin-right: 5%;
     background-color: rgba(44, 44, 43, 0.7);
@@ -139,4 +139,65 @@ h1 {
 .task.done .titlediv{
     text-decoration: line-through;
     text-decoration-thickness: 0.2rem;
+}
+.add-task-btn{
+    width: 100%;
+    text-align: left;
+    background-color: rgb(88, 88, 88);
+    font-weight: 700;
+    font-size: 1em;
+    border: 2px solid #160f13;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+    height: 5vh;
+    padding-left: 20px;
+}
+
+form{
+    display: none;
+    position: fixed;
+    bottom: 40vh;
+    left: 340px;
+    background-color: #1f2937;
+    border: 2px solid #160f13;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.input-div {
+    padding-left: 3vw;
+    margin-top: 5vh;
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 0 10px 20px -2px rgb(22 22 22);
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.input {
+    flex-basis: 45%;
+    display: flex;
+    flex-flow: column wrap;
+}
+input, select{
+    background-color: rgb(2, 2, 2, 0.7);
+    border: 1px solid rgb(70, 66, 66);
+    border-radius: 3px;
+    height: 2.5vh;
+    color-scheme: dark;
+}
+
+.checkbox{
+    flex-basis: 45%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    align-items: center;
+}
+.form-btn{
+    flex-basis: 40%;
+    text-align: center;
+    width: fit-content;
 }
