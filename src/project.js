@@ -24,7 +24,10 @@ export default class Project {
     }
 
     addTask(newTask) {
-        if (this.tasks.find((task) => task.getName() === newTask.getName())) return
+        if (this.tasks.find((task) => task.getName() === newTask.getName())) {
+            alert("Tasks have to have different names!")
+            return
+        }
         this.tasks.push(newTask);
     }
 
@@ -56,7 +59,7 @@ export default class Project {
 
     getThisWeekTasks() {
         return this.tasks.filter((task) => {
-            return isThisWeek(task.getDueDate(),1)
+            return isThisWeek(task.getDueDate(), 1)
         })
     }
 

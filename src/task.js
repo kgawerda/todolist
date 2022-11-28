@@ -49,7 +49,8 @@ export default class task {
         this.done = !this.done;
     }
 
-    formatDate() {
-        format(this.dueDate, 'dd/MM/yy');
+    getFormatDate() {
+        let Date=this.dueDate;
+        return format(Date, 'dd/MM/yy');
     }
 }
