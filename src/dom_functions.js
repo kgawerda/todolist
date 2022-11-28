@@ -73,50 +73,60 @@ function createTask(task) {
 function renderProject(project) {
     const projectDiv = document.querySelector('.project-div');
     const projectTitle = document.createElement('h1');
-    const sortbtn = document.createElement('button');
-    const titlediv = document.createElement('div');
-    sortbtn.classList.add('sort-btn');
-    titlediv.classList.add('titlediv')
-    sortbtn.textContent = 'sort: Date';
-    sortbtn.id = '0';
 
+
+    const titlediv = document.createElement('div');
+    titlediv.classList.add('titlediv')
     titlediv.appendChild(projectTitle);
-    titlediv.appendChild(sortbtn);
+
 
     projectTitle.textContent = project.getName();
     projectDiv.appendChild(titlediv);
     projectDiv.id = project.getName().replace(/\s/g, "");
 
-    project.tasks.forEach(task => {
-        createTask(task);
-        addEventListenerToTask(task, project);
-    });
+    renderTasks(project);
 
+
+    const sortbtn = document.createElement('button');
+    sortbtn.classList.add('sort-btn');
+    sortbtn.textContent = 'sort: Date';
+    sortbtn.id = '1';
     sortbtn.addEventListener('click', function (e) {
         switch (e.target.id) {
             case '0':
                 console.log('0')
+                project.sortByDate();
+                derenderTasks();
+                renderTasks(project);
                 e.target.textContent = 'sort: Date';
                 e.target.id = '1';
-                project.sortByDate();
-                derenderProject();
-                renderProject(project);
                 break;
             case '1':
+                console.log('1');
+                project.sortByPriority();
+                derenderTasks();
+                renderTasks(project);
                 e.target.textContent = 'sort: Priority';
                 e.target.id = '2';
-                project.sortByPriority();
-                derenderProject();
-                renderProject(project);
                 break;
             case '2':
+                console.log('2');
+                project.sortAlphabetically();
+                derenderTasks();
+                renderTasks(project);
                 e.target.textContent = 'sort: Alphabetically';
                 e.target.id = '0';
-                project.sortAlphabetically();
-                derenderProject();
-                renderProject(project);
                 break;
         }
+    });
+    titlediv.appendChild(sortbtn);
+
+}
+
+function renderTasks(project) {
+    project.tasks.forEach(task => {
+        createTask(task);
+        addEventListenerToTask(task, project);
     });
 }
 
@@ -137,15 +147,17 @@ function addEventListenerToTask(task, project) {
     detailsbtn.addEventListener('click', function () {
 
     });
-    
+
 
 }
 
-function derenderProject(){
-    const projectDiv = document.querySelector('.project-div');
-    while (projectDiv.firstChild) {
+function derenderTasks() {
+    const tasks = document.querySelectorAll('.task');
+    tasks.forEach((task) => task.remove())
+    /*
+    while (projectDiv.firstChild-1) {
         projectDiv.removeChild(projectDiv.lastChild);
-      }
+    }*/
 }
 
 export default renderProject
