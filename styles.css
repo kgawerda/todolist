@@ -29,7 +29,7 @@ body {
     padding: 5px;
 }
 
-button {
+nav button, .sort-btn {
     margin-left: 5%;
     margin-right: 5%;
     background-color: rgba(44, 44, 43, 0.7);
@@ -61,8 +61,66 @@ h1 {
     padding: 10px 20px;
 }
 
-.project-preview {
+.project-div {
     width: calc(100% - 300px);
     height: 100%;
     padding: 20px 40px;
+}
+
+.task{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    margin-bottom: 5px;
+    border: 4px solid #160f13;
+    border-radius: 5px;
+    background-color: grey;
+}
+
+.task-left{
+    display: flex;
+    align-items: center;
+}
+
+.task-right{
+    display: flex;
+    align-items: center;
+}
+.task *{
+    margin: 5px;
+
+}
+.task-right > button{
+    color: #160f13;
+ }
+
+.project-div h1{
+    margin-bottom: 10px;
+}
+
+
+.task.not-done{
+    border-left-color: lightcoral;
+}
+.task.done{
+    border-left-color: greenyellow;
+}
+.priority-high{
+    border-right-color: red;
+}
+.priority-medium{
+    border-right-color: yellow;
+}
+.priority-low{
+    border-right-color: #98fb98;
+}
+.titlediv{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.sort-btn{
+    width: fit-content;
 }
