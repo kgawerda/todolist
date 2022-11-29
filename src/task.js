@@ -53,4 +53,9 @@ export default class task {
         let Date=this.dueDate;
         return format(Date, 'dd/MM/yy');
     }
+
+    getDomDate(){
+        let Date=this.dueDate;
+        return format(Date, 'yyyy-MM-dd');
+    }
 }

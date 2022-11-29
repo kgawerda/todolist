@@ -148,7 +148,7 @@ function addEventListenerToTask(task, project) {
         e.target.parentElement.parentElement.remove();
     });
     editbtn.addEventListener('click', function () {
-
+        editTask(task, project);
     });
     detailsbtn.addEventListener('click', function () {
 
@@ -181,7 +181,9 @@ function renderForm(project) {
     const formbtn = document.querySelector('.form-btn');
     const quitbtn = document.querySelector('.quit-btn');
     form.style.display = 'block';
-    formbtn.addEventListener('click', (e) => {
+    const formbutton=formbtn.cloneNode(true)
+    formbtn.replaceWith(formbutton);
+    formbutton.addEventListener('click', function formListener(e){
         e.preventDefault();
         e.stopImmediatePropagation();
         const name = form.elements['name'].value;
@@ -207,6 +209,64 @@ function renderForm(project) {
         form.reset();
         form.style.display = 'none';
     });
+    quitbtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        form.reset();
+        form.style.display = 'none';
+    });
+}
+
+function editTask(task, project) {
+    const form = document.querySelector('#task-form');
+    const formbtn = document.querySelector('.form-btn');
+    const quitbtn = document.querySelector('.quit-btn');
+    form.style.display = 'block';
+    form.elements['name'].value = task.getName();
+    form.elements['description'].value = task.getDescription();
+
+    form.elements['date'].value = task.getDomDate();
+
+    switch (task.getPriority()) {
+        case 0:
+            form.elements['priority'].value = 'high';
+            break;
+        case 1:
+            form.elements['priority'].value = 'medium';
+            break;
+        case 2:
+            form.elements['priority'].value = 'low';
+            break;
+    }
+    form.elements['done'].checked=task.isDone();
+
+    const formbutton=formbtn.cloneNode(true)
+    formbtn.replaceWith(formbutton);
+    formbutton.addEventListener('click', function formListener(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        task.setName(form.elements['name'].value);
+        task.setDescription(form.elements['description'].value);
+
+        task.setDueDate(new Date(form.elements['date'].value));
+
+        switch (form.elements['priority'].value) {
+            case 'high':
+                task.setPriority(0);
+                break;
+            case 'medium':
+                task.setPriority(1);
+                break;
+            case 'low':
+                task.setPriority(2);
+                break;
+        }
+        derenderTasks(project);
+        renderTasks(project);
+        form.reset();
+        form.style.display = 'none';
+    });
+    formbutton.textContent='Edit task';
     quitbtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopImmediatePropagation();
