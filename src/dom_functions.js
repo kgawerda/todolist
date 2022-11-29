@@ -1,10 +1,10 @@
 import Task from "./task.js"
 import Project from "./project"
 
-let projects=[];
-let projectAll=new Project('All');
-let projectToday=new Project('Today');
-let projectThisWeek=new Project('This Week');
+let projects = [];
+let projectAll = new Project('All');
+let projectToday = new Project('Today');
+let projectThisWeek = new Project('This Week');
 projects.push(projectAll);
 projects.push(projectToday);
 projects.push(projectThisWeek);
@@ -88,7 +88,7 @@ function renderProject(project) {
 
     projectTitle.textContent = project.getName();
     projectDiv.appendChild(titlediv);
-    projectDiv.id = project.getName().replace(/\s/g, "");
+    //projectDiv.id = project.getName().replace(/\s/g, "");
 
     const addbtn = document.createElement('button');
 
@@ -333,20 +333,56 @@ function createProject() {
     const newProjectDiv = document.createElement('button');
     const addProjectBtn = document.querySelector('#add-project-btn');
     const input = nav.querySelector('input');
-    newProjectDiv.textContent=input.value;
-    if(!newProjectDiv.textContent) return
-    let project=new Project(input.value);
+    const deletebtn = document.createElement('button');
+    deletebtn.classList.add('delete-project-btn')
+    deletebtn.textContent = 'X';
+
+    newProjectDiv.classList.add('custom-project');
+    newProjectDiv.textContent = input.value;
+    if (!newProjectDiv.textContent) return
+    let project = new Project(input.value);
     projects.push(project);
-    newProjectDiv.id=projects.length-1;
-    newProjectDiv.addEventListener('click',()=>{
+    newProjectDiv.dataset.arrayid = projects.length-1;
+
+    newProjectDiv.addEventListener('click', () => {
+        if (!newProjectDiv) return
         derenderProject();
-        renderProject(projects[newProjectDiv.id]);
-    })
+        renderProject(projects[newProjectDiv.dataset.arrayid]);
+    });
+    deletebtn.addEventListener('click', (e) => {
+        deleteProject(e.target.parentElement.dataset.arrayid);
+        derenderProject();
+    });
+
+    //newProjectDiv.appendChild(deletebtn);
     addProjectBtn.before(newProjectDiv);
 }
 
+function deleteProject(ide) {
+    const project = document.querySelector('[data-arrayid="' + ide + '"]');
+    project.remove();
+    projects.splice(ide, 1);
+    var collection = document.getElementsByClassName('custom-project');
+    console.log(collection);
+    for (var i = 3; i < collection.length+3; i++) { //reassigns proper data-arrayid
+        collection[i-3].id = i;
+        /*let item=collection[i-3].cloneNode(true);
+        collection[i-3].remove();
+        collection[i-3].addEventListener('click', ()=>{
+            derenderProject();
+            renderProject(projects[collection.id]);
+        });
+        const deletebtn=collection[i-3].querySelector('.delete-project-btn');
+        deletebtn.addEventListener('click', (e) => {
+            deleteProject(e.target.parentElement.dataset.arrayid);
+            derenderProject();
+        });*/
+    };
+    console.log(projects);
+}
 
-function addProjectBtn(){
+
+function addProjectBtn() {
     const addProjectBtn = document.querySelector('#add-project-btn');
 
     addProjectBtn.addEventListener('click', () => {
@@ -380,40 +416,40 @@ function addProjectBtn(){
     });
 }
 
-function removeAddProjectBtn(){
+function removeAddProjectBtn() {
     const addProjectBtn = document.querySelector('.add-task-btn');
     addProjectBtn.remove();
 }
 
-function updateTodayProject(){
-    projects[1].tasks=projects[0].getTodayTasks();
+function updateTodayProject() {
+    projects[1].tasks = projects[0].getTodayTasks();
     derenderProject();
     renderProject(projects[1]);
     removeAddProjectBtn();
 }
-function updateThisWeekProject(){
-    projects[2].tasks=projects[0].getThisWeekTasks();
+function updateThisWeekProject() {
+    projects[2].tasks = projects[0].getThisWeekTasks();
     derenderProject();
     renderProject(projects[2]);
     removeAddProjectBtn();
 }
-function updateAll(){
+function updateAll() {
     derenderProject();
     renderProject(projects[0]);
 }
 
-function addDefaultProjectsEvent(){
-    const allbtn=document.querySelector('#all-projects-btn');
-    const todaybtn=document.querySelector('#today-projects-btn');
-    const thisweekbtn=document.querySelector('#this-week-projects-btn');
-    allbtn.addEventListener('click',updateAll);
-    todaybtn.addEventListener('click',updateTodayProject);
-    thisweekbtn.addEventListener('click',updateThisWeekProject);
+function addDefaultProjectsEvent() {
+    const allbtn = document.querySelector('#all-projects-btn');
+    const todaybtn = document.querySelector('#today-projects-btn');
+    const thisweekbtn = document.querySelector('#this-week-projects-btn');
+    allbtn.addEventListener('click', updateAll);
+    todaybtn.addEventListener('click', updateTodayProject);
+    thisweekbtn.addEventListener('click', updateThisWeekProject);
 }
 
-function derenderProject(){
+function derenderProject() {
     const projectDiv = document.querySelector('.project-div');
-    while(projectDiv.firstChild){
+    while (projectDiv.firstChild) {
         projectDiv.removeChild(projectDiv.lastChild);
     }
 }
@@ -422,21 +458,21 @@ function firstRender() {
     addProjectBtn();
     addDefaultProjectsEvent();
 
+
+
+    /*
+        let task1 = new Task('A Do something', 'description1', new Date(2022, 10, 30), 2, false);
+        let task2 = new Task('B Do something', 'description2', new Date(2022, 10, 29), 0, true);
+        let task3 = new Task('D Do something', 'description3', new Date(2022, 0, 2), 1, false);
+        let task4 = new Task('C Do something', 'description4', new Date(2022, 11, 2), 0, false);
     
-
-/*
-    let task1 = new Task('A Do something', 'description1', new Date(2022, 10, 30), 2, false);
-    let task2 = new Task('B Do something', 'description2', new Date(2022, 10, 29), 0, true);
-    let task3 = new Task('D Do something', 'description3', new Date(2022, 0, 2), 1, false);
-    let task4 = new Task('C Do something', 'description4', new Date(2022, 11, 2), 0, false);
-
-
-    projects[0].addTask(task1);
-    projects[0].addTask(task2);
-    projects[0].addTask(task3);
-    projects[0].addTask(task4);
-
-    renderProject(projects[0]);*/
+    
+        projects[0].addTask(task1);
+        projects[0].addTask(task2);
+        projects[0].addTask(task3);
+        projects[0].addTask(task4);
+    
+        renderProject(projects[0]);*/
 
 }
 export default firstRender
