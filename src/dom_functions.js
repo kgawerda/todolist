@@ -185,16 +185,31 @@ function renderForm(project) {
     form.style.display = 'block';
     formbtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopImmediatePropagation();
         const name = form.elements['name'].value;
         const description = form.elements['description'].value;
         const date = form.elements['date'].value;
-        const priority = parseInt(form.elements['priority'].value);
+        let priority = form.elements['priority'].value;
+        switch (priority) {
+            case 'high':
+                priority = 0;
+                break;
+            case 'medium':
+                priority = 1;
+                break;
+            case 'low':
+                priority = 2;
+                break;
+        }
+        console.log(priority);
         const done = form.elements['done'].checked;
         let task = new Task(name, description, new Date(date), priority, done);
         project.addTask(task);
         createTask(task);
-        addEventListenerToTask(task,project);
+        addEventListenerToTask(task, project);
+        form.reset();
         form.style.display = 'none';
+        console.log(project);
     });
 }
 
