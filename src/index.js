@@ -6,5 +6,5 @@ import firstRender from "./dom_functions.js"
 firstRender();
 
 /*
-Whats left: details, edit, exit button from form, projects, localstorage, stop form from submitting twice
+Whats left: details, edit, projects, localstorage
 */

@@ -99,7 +99,6 @@ function renderProject(project) {
     sortbtn.addEventListener('click', function (e) {
         switch (e.target.id) {
             case '0':
-                console.log('0')
                 project.sortByDate();
                 derenderTasks();
                 renderTasks(project);
@@ -107,7 +106,6 @@ function renderProject(project) {
                 e.target.id = '1';
                 break;
             case '1':
-                console.log('1');
                 project.sortByPriority();
                 derenderTasks();
                 renderTasks(project);
@@ -115,7 +113,6 @@ function renderProject(project) {
                 e.target.id = '2';
                 break;
             case '2':
-                console.log('2');
                 project.sortAlphabetically();
                 derenderTasks();
                 renderTasks(project);
@@ -182,6 +179,7 @@ function derenderTasks() {
 function renderForm(project) {
     const form = document.querySelector('#task-form');
     const formbtn = document.querySelector('.form-btn');
+    const quitbtn = document.querySelector('.quit-btn');
     form.style.display = 'block';
     formbtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -201,7 +199,6 @@ function renderForm(project) {
                 priority = 2;
                 break;
         }
-        console.log(priority);
         const done = form.elements['done'].checked;
         let task = new Task(name, description, new Date(date), priority, done);
         project.addTask(task);
@@ -209,7 +206,12 @@ function renderForm(project) {
         addEventListenerToTask(task, project);
         form.reset();
         form.style.display = 'none';
-        console.log(project);
+    });
+    quitbtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        form.reset();
+        form.style.display = 'none';
     });
 }
 
