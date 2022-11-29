@@ -6,5 +6,5 @@ import firstRender from "./dom_functions.js"
 firstRender();
 
 /*
-Whats left: details, edit, projects, localstorage
+Whats left: projects, localstorage, removing projects
 */

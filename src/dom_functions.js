@@ -257,7 +257,7 @@ function editTask(task, project) {
                 task.setPriority(2);
                 break;
         }
-        if(form.elements['done'].checked) task.setDone();
+        if (form.elements['done'].checked) task.setDone();
         else task.setNotDone();
         derenderTasks(project);
         renderTasks(project);
@@ -294,10 +294,10 @@ function detailsTask(task) {
     }
     form.elements['done'].checked = task.isDone();
 
-    const select=form.querySelector('select');
-    const input=Array.from(form.querySelectorAll('input'));
-    input.forEach(inp=>inp.disabled=true);
-    select.disabled=true;
+    const select = form.querySelector('select');
+    const input = Array.from(form.querySelectorAll('input'));
+    input.forEach(inp => inp.disabled = true);
+    select.disabled = true;
 
     const formbutton = formbtn.cloneNode(true)
     formbtn.replaceWith(formbutton);
@@ -306,8 +306,8 @@ function detailsTask(task) {
         e.stopImmediatePropagation();
         form.reset();
         form.style.display = 'none';
-        input.forEach(inp=>inp.disabled=false);
-        select.disabled=false;
+        input.forEach(inp => inp.disabled = false);
+        select.disabled = false;
     });
     formbutton.textContent = 'Done';
 
@@ -319,7 +319,63 @@ function detailsTask(task) {
     });
 }
 
+function createProject() {
+    const nav = document.querySelector('nav');
+    const newProjectDiv = document.createElement('button');
+    const addProjectBtn = document.querySelector('#add-project-btn');
+    const input = nav.querySelector('input');
+
+    newProjectDiv.textContent=input.value;
+
+    if(newProjectDiv.textContent) addProjectBtn.before(newProjectDiv);
+}
+
+
+function addProjectBtn(){
+    const addProjectBtn = document.querySelector('#add-project-btn');
+
+    addProjectBtn.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.classList.add('project-input');
+
+        const quitbtn = document.createElement('button');
+        quitbtn.classList.add('add-project-quit-btn');
+        quitbtn.textContent = 'X';
+        const donebtn = document.createElement('button');
+        donebtn.classList.add('add-project-done-btn');
+        donebtn.textContent = 'done';
+        addProjectBtn.before(input);
+
+        const btndiv = document.createElement('div');
+        btndiv.classList.add('btndiv')
+        btndiv.appendChild(donebtn);
+        btndiv.appendChild(quitbtn);
+        addProjectBtn.before(btndiv);
+
+        donebtn.addEventListener('click', () => {
+            createProject();
+            btndiv.remove();
+            input.remove();
+        });
+        quitbtn.addEventListener('click', () => {
+            btndiv.remove();
+            input.remove();
+        });
+
+    });
+}
+
+
+
+
+
+
+
 function firstRender() {
+    
+    addProjectBtn();
+
+
     let task1 = new Task('A Do something', 'description1', new Date(2022, 10, 30), 2, false);
     let task2 = new Task('B Do something', 'description2', new Date(2022, 10, 28), 0, true);
     let task3 = new Task('D Do something', 'description3', new Date(2022, 0, 2), 1, false);

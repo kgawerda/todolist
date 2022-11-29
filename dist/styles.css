@@ -29,7 +29,7 @@ body {
     padding: 5px;
 }
 
-nav button, .sort-btn, .form-btn{
+nav button, .sort-btn, .form-btn, .project-input{
     margin-left: 5%;
     margin-right: 5%;
     background-color: rgba(44, 44, 43, 0.7);
@@ -219,4 +219,35 @@ input, select{
     height: 1.5rem;
     color: azure;
     padding: 0 10px;
+}
+
+.add-project-quit-btn, .add-project-done-btn{
+    width: 40%;
+    height: 4vh;
+    padding: 0;
+    text-align: center;
+    gap: 50px;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+.add-project-quit-btn{
+    width: 4vh;
+    background-color: red;
+    margin-left: 10px;
+}
+.add-project-done-btn{
+    margin-right: 10px;
+    background-color: green;
+}
+.btndiv{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-weight: 700;
+    font-size: 1em;
+    text-align: left;
+    width: 100%;
+    height: 5vh;
+    justify-content: center;
 }
