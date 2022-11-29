@@ -1,8 +1,8 @@
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 export default class task {
   // eslint-disable-next-line default-param-last
-  constructor(name, description, dueDate = 'No date', priority, done = false) {
+  constructor(name, description, dueDate = "No date", priority, done = false) {
     this.name = name;
     this.description = description;
     this.dueDate = dueDate;
@@ -60,11 +60,11 @@ export default class task {
 
   getFormatDate() {
     const Date = this.dueDate;
-    return format(Date, 'dd/MM/yy');
+    return format(Date, "dd/MM/yy");
   }
 
   getDomDate() {
     const Date = this.dueDate;
-    return format(Date, 'yyyy-MM-dd');
+    return format(Date, "yyyy-MM-dd");
   }
 }

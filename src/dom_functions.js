@@ -1,69 +1,69 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-import Task from './task';
-import Project from './project';
+import Task from "./task";
+import Project from "./project";
 
 const projects = [];
-const projectAll = new Project('All');
-const projectToday = new Project('Today');
-const projectThisWeek = new Project('This Week');
+const projectAll = new Project("All");
+const projectToday = new Project("Today");
+const projectThisWeek = new Project("This Week");
 projects.push(projectAll);
 projects.push(projectToday);
 projects.push(projectThisWeek);
 console.log(projects);
 
 function createTask(task) {
-  const projectDiv = document.querySelector('.project-div');
-  const taskdiv = document.createElement('div');
-  const checkeddiv = document.createElement('div');
-  const tasktitle = document.createElement('div');
-  const editbtn = document.createElement('button');
-  const datediv = document.createElement('div');
-  const deletebtn = document.createElement('button');
-  const detailsbtn = document.createElement('button');
+  const projectDiv = document.querySelector(".project-div");
+  const taskdiv = document.createElement("div");
+  const checkeddiv = document.createElement("div");
+  const tasktitle = document.createElement("div");
+  const editbtn = document.createElement("button");
+  const datediv = document.createElement("div");
+  const deletebtn = document.createElement("button");
+  const detailsbtn = document.createElement("button");
 
-  const rightdiv = document.createElement('div');
-  const leftdiv = document.createElement('div');
+  const rightdiv = document.createElement("div");
+  const leftdiv = document.createElement("div");
 
-  taskdiv.classList.add('task');
-  taskdiv.id = task.getName().replace(/\s/g, '');
+  taskdiv.classList.add("task");
+  taskdiv.id = task.getName().replace(/\s/g, "");
   switch (task.getPriority()) {
     case 0:
-      taskdiv.classList.add('priority-high');
+      taskdiv.classList.add("priority-high");
       break;
     case 1:
-      taskdiv.classList.add('priority-medium');
+      taskdiv.classList.add("priority-medium");
       break;
     case 2:
-      taskdiv.classList.add('priority-low');
+      taskdiv.classList.add("priority-low");
       break;
     default:
       break;
   }
 
   if (task.isDone()) {
-    checkeddiv.classList.add('done');
-    taskdiv.classList.add('done');
+    checkeddiv.classList.add("done");
+    taskdiv.classList.add("done");
   } else {
-    checkeddiv.classList.add('not-done');
-    taskdiv.classList.add('not-done');
+    checkeddiv.classList.add("not-done");
+    taskdiv.classList.add("not-done");
   }
 
   tasktitle.textContent = task.getName();
   datediv.textContent = task.getFormatDate();
-  deletebtn.textContent = 'delete';
-  editbtn.textContent = 'edit';
-  detailsbtn.textContent = 'details';
+  deletebtn.textContent = "delete";
+  editbtn.textContent = "edit";
+  detailsbtn.textContent = "details";
 
-  detailsbtn.classList.add('details-btn');
-  editbtn.classList.add('edit-btn');
-  deletebtn.classList.add('delete-btn');
-  leftdiv.classList.add('task-left');
-  rightdiv.classList.add('task-right');
+  detailsbtn.classList.add("details-btn");
+  editbtn.classList.add("edit-btn");
+  deletebtn.classList.add("delete-btn");
+  leftdiv.classList.add("task-left");
+  rightdiv.classList.add("task-right");
 
-  checkeddiv.classList.add('checkdiv');
-  tasktitle.classList.add('titlediv');
-  datediv.classList.add('datediv');
+  checkeddiv.classList.add("checkdiv");
+  tasktitle.classList.add("titlediv");
+  datediv.classList.add("datediv");
 
   leftdiv.appendChild(checkeddiv);
   leftdiv.appendChild(tasktitle);
@@ -79,59 +79,59 @@ function createTask(task) {
 }
 
 function renderProject(project) {
-  const projectDiv = document.querySelector('.project-div');
-  const projectTitle = document.createElement('h1');
+  const projectDiv = document.querySelector(".project-div");
+  const projectTitle = document.createElement("h1");
 
-  const titlediv = document.createElement('div');
-  titlediv.classList.add('titlediv');
+  const titlediv = document.createElement("div");
+  titlediv.classList.add("titlediv");
   titlediv.appendChild(projectTitle);
 
   projectTitle.textContent = project.getName();
   projectDiv.appendChild(titlediv);
   // projectDiv.id = project.getName().replace(/\s/g, "");
 
-  const addbtn = document.createElement('button');
+  const addbtn = document.createElement("button");
 
-  addbtn.classList.add('add-task-btn');
+  addbtn.classList.add("add-task-btn");
 
-  addbtn.textContent = '+ Add task';
+  addbtn.textContent = "+ Add task";
   projectDiv.appendChild(addbtn);
 
   renderTasks(project);
 
-  const sortbtn = document.createElement('button');
-  sortbtn.classList.add('sort-btn');
-  sortbtn.textContent = 'sort: Date';
-  sortbtn.id = '1';
-  sortbtn.addEventListener('click', (e) => {
+  const sortbtn = document.createElement("button");
+  sortbtn.classList.add("sort-btn");
+  sortbtn.textContent = "sort: Date";
+  sortbtn.id = "1";
+  sortbtn.addEventListener("click", (e) => {
     switch (e.target.id) {
-      case '0':
+      case "0":
         project.sortByDate();
         derenderTasks();
         renderTasks(project);
-        e.target.textContent = 'sort: Date';
-        e.target.id = '1';
+        e.target.textContent = "sort: Date";
+        e.target.id = "1";
         break;
-      case '1':
+      case "1":
         project.sortByPriority();
         derenderTasks();
         renderTasks(project);
-        e.target.textContent = 'sort: Priority';
-        e.target.id = '2';
+        e.target.textContent = "sort: Priority";
+        e.target.id = "2";
         break;
-      case '2':
+      case "2":
         project.sortAlphabetically();
         derenderTasks();
         renderTasks(project);
-        e.target.textContent = 'sort: Alphabetically';
-        e.target.id = '0';
+        e.target.textContent = "sort: Alphabetically";
+        e.target.id = "0";
         break;
       default:
         break;
     }
   });
   titlediv.appendChild(sortbtn);
-  addbtn.addEventListener('click', () => {
+  addbtn.addEventListener("click", () => {
     renderForm(project);
   });
 }
@@ -144,51 +144,53 @@ function renderTasks(project) {
 }
 
 function addEventListenerToTask(task, project) {
-  const taskdiv = document.querySelector(`#${task.getName().replace(/\s/g, '')}`);
-  const deletebtn = taskdiv.querySelector('.delete-btn');
-  const editbtn = taskdiv.querySelector('.edit-btn');
-  const detailsbtn = taskdiv.querySelector('.details-btn');
-  const checkdiv = taskdiv.querySelector('.checkdiv');
+  const taskdiv = document.querySelector(
+    `#${task.getName().replace(/\s/g, "")}`
+  );
+  const deletebtn = taskdiv.querySelector(".delete-btn");
+  const editbtn = taskdiv.querySelector(".edit-btn");
+  const detailsbtn = taskdiv.querySelector(".details-btn");
+  const checkdiv = taskdiv.querySelector(".checkdiv");
 
-  deletebtn.addEventListener('click', (e) => {
+  deletebtn.addEventListener("click", (e) => {
     project.deleteTask(task.getName());
     e.target.parentElement.parentElement.remove();
   });
-  editbtn.addEventListener('click', () => {
+  editbtn.addEventListener("click", () => {
     editTask(task, project);
   });
-  detailsbtn.addEventListener('click', () => {
+  detailsbtn.addEventListener("click", () => {
     detailsTask(task);
   });
-  checkdiv.addEventListener('click', () => {
+  checkdiv.addEventListener("click", () => {
     task.toggleDone();
-    if (checkdiv.classList.contains('done')) {
-      checkdiv.classList.add('not-done');
-      taskdiv.classList.add('not-done');
-      checkdiv.classList.remove('done');
-      taskdiv.classList.remove('done');
+    if (checkdiv.classList.contains("done")) {
+      checkdiv.classList.add("not-done");
+      taskdiv.classList.add("not-done");
+      checkdiv.classList.remove("done");
+      taskdiv.classList.remove("done");
     } else {
-      checkdiv.classList.add('done');
-      taskdiv.classList.add('done');
-      checkdiv.classList.remove('not-done');
-      taskdiv.classList.remove('not-done');
+      checkdiv.classList.add("done");
+      taskdiv.classList.add("done");
+      checkdiv.classList.remove("not-done");
+      taskdiv.classList.remove("not-done");
     }
   });
 }
 
 function derenderTasks() {
-  const tasks = document.querySelectorAll('.task');
+  const tasks = document.querySelectorAll(".task");
   tasks.forEach((task) => task.remove());
 }
 
 function renderForm(project) {
-  const form = document.querySelector('#task-form');
-  const formbtn = document.querySelector('.form-btn');
-  const quitbtn = document.querySelector('.quit-btn');
-  form.style.display = 'block';
+  const form = document.querySelector("#task-form");
+  const formbtn = document.querySelector(".form-btn");
+  const quitbtn = document.querySelector(".quit-btn");
+  form.style.display = "block";
   const formbutton = formbtn.cloneNode(true);
   formbtn.replaceWith(formbutton);
-  formbutton.addEventListener('click', (e) => {
+  formbutton.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     const name = form.elements.name.value;
@@ -196,13 +198,13 @@ function renderForm(project) {
     const date = form.elements.date.value;
     let priority = form.elements.priority.value;
     switch (priority) {
-      case 'high':
+      case "high":
         priority = 0;
         break;
-      case 'medium':
+      case "medium":
         priority = 1;
         break;
-      case 'low':
+      case "low":
         priority = 2;
         break;
       default:
@@ -215,33 +217,33 @@ function renderForm(project) {
     createTask(task);
     addEventListenerToTask(task, project);
     form.reset();
-    form.style.display = 'none';
+    form.style.display = "none";
   });
-  quitbtn.addEventListener('click', (e) => {
+  quitbtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     form.reset();
-    form.style.display = 'none';
+    form.style.display = "none";
   });
 }
 
 function editTask(task, project) {
-  const form = document.querySelector('#task-form');
-  const formbtn = document.querySelector('.form-btn');
-  const quitbtn = document.querySelector('.quit-btn');
-  form.style.display = 'block';
+  const form = document.querySelector("#task-form");
+  const formbtn = document.querySelector(".form-btn");
+  const quitbtn = document.querySelector(".quit-btn");
+  form.style.display = "block";
   form.elements.name.value = task.getName();
   form.elements.description.value = task.getDescription();
   form.elements.date.value = task.getDomDate();
   switch (task.getPriority()) {
     case 0:
-      form.elements.priority.value = 'high';
+      form.elements.priority.value = "high";
       break;
     case 1:
-      form.elements.priority.value = 'medium';
+      form.elements.priority.value = "medium";
       break;
     case 2:
-      form.elements.priority.value = 'low';
+      form.elements.priority.value = "low";
       break;
     default:
       break;
@@ -250,20 +252,20 @@ function editTask(task, project) {
 
   const formbutton = formbtn.cloneNode(true);
   formbtn.replaceWith(formbutton);
-  formbutton.addEventListener('click', (e) => {
+  formbutton.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     task.setName(form.elements.name.value);
     task.setDescription(form.elements.description.value);
     task.setDueDate(new Date(form.elements.date.value));
     switch (form.elements.priority.value) {
-      case 'high':
+      case "high":
         task.setPriority(0);
         break;
-      case 'medium':
+      case "medium":
         task.setPriority(1);
         break;
-      case 'low':
+      case "low":
         task.setPriority(2);
         break;
       default:
@@ -274,87 +276,87 @@ function editTask(task, project) {
     derenderTasks(project);
     renderTasks(project);
     form.reset();
-    form.style.display = 'none';
+    form.style.display = "none";
   });
-  formbutton.textContent = 'Edit task';
-  quitbtn.addEventListener('click', (e) => {
+  formbutton.textContent = "Edit task";
+  quitbtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     form.reset();
-    form.style.display = 'none';
+    form.style.display = "none";
   });
 }
 
 function detailsTask(task) {
-  const form = document.querySelector('#task-form');
-  const formbtn = document.querySelector('.form-btn');
-  const quitbtn = document.querySelector('.quit-btn');
-  form.style.display = 'block';
+  const form = document.querySelector("#task-form");
+  const formbtn = document.querySelector(".form-btn");
+  const quitbtn = document.querySelector(".quit-btn");
+  form.style.display = "block";
   form.elements.name.value = task.getName();
   form.elements.description.value = task.getDescription();
   form.elements.date.value = task.getDomDate();
   switch (task.getPriority()) {
     case 0:
-      form.elements.priority.value = 'high';
+      form.elements.priority.value = "high";
       break;
     case 1:
-      form.elements.priority.value = 'medium';
+      form.elements.priority.value = "medium";
       break;
     case 2:
-      form.elements.priority.value = 'low';
+      form.elements.priority.value = "low";
       break;
     default:
       break;
   }
   form.elements.done.checked = task.isDone();
 
-  const select = form.querySelector('select');
-  const input = Array.from(form.querySelectorAll('input'));
-  input.forEach((inp) => inp.disabled = true);
+  const select = form.querySelector("select");
+  const input = Array.from(form.querySelectorAll("input"));
+  input.forEach((inp) => (inp.disabled = true));
   select.disabled = true;
 
   const formbutton = formbtn.cloneNode(true);
   formbtn.replaceWith(formbutton);
-  formbutton.addEventListener('click', (e) => {
+  formbutton.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     form.reset();
-    form.style.display = 'none';
-    input.forEach((inp) => inp.disabled = false);
+    form.style.display = "none";
+    input.forEach((inp) => (inp.disabled = false));
     select.disabled = false;
   });
-  formbutton.textContent = 'Done';
+  formbutton.textContent = "Done";
 
-  quitbtn.addEventListener('click', (e) => {
+  quitbtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     form.reset();
-    form.style.display = 'none';
+    form.style.display = "none";
   });
 }
 
 function createProject() {
-  const nav = document.querySelector('nav');
-  const newProjectDiv = document.createElement('button');
+  const nav = document.querySelector("nav");
+  const newProjectDiv = document.createElement("button");
   // const addProjectBtn = document.querySelector('#add-project-btn');
-  const input = nav.querySelector('input');
-  const deletebtn = document.createElement('button');
-  deletebtn.classList.add('delete-project-btn');
-  deletebtn.textContent = 'X';
+  const input = nav.querySelector("input");
+  const deletebtn = document.createElement("button");
+  deletebtn.classList.add("delete-project-btn");
+  deletebtn.textContent = "X";
 
-  newProjectDiv.classList.add('custom-project');
+  newProjectDiv.classList.add("custom-project");
   newProjectDiv.textContent = input.value;
   if (!newProjectDiv.textContent) return;
   const project = new Project(input.value);
   projects.push(project);
   newProjectDiv.dataset.arrayid = projects.length - 1;
 
-  newProjectDiv.addEventListener('click', () => {
+  newProjectDiv.addEventListener("click", () => {
     if (!newProjectDiv) return;
     derenderProject();
     renderProject(projects[newProjectDiv.dataset.arrayid]);
   });
-  deletebtn.addEventListener('click', (e) => {
+  deletebtn.addEventListener("click", (e) => {
     deleteProject(e.target.parentElement.dataset.arrayid);
     derenderProject();
   });
@@ -367,9 +369,10 @@ function deleteProject(ide) {
   const project = document.querySelector(`[data-arrayid="${ide}"]`);
   project.remove();
   projects.splice(ide, 1);
-  const collection = document.getElementsByClassName('custom-project');
+  const collection = document.getElementsByClassName("custom-project");
   console.log(collection);
-  for (let i = 3; i < collection.length + 3; i++) { // reassigns proper data-arrayid
+  for (let i = 3; i < collection.length + 3; i++) {
+    // reassigns proper data-arrayid
     collection[i - 3].id = i;
     /* let item=collection[i-3].cloneNode(true);
         collection[i-3].remove();
@@ -388,32 +391,32 @@ function deleteProject(ide) {
 
 function addProjectBtn() {
   // eslint-disable-next-line no-shadow
-  const addProjectBtn = document.querySelector('#add-project-btn');
+  const addProjectBtn = document.querySelector("#add-project-btn");
 
-  addProjectBtn.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.classList.add('project-input');
+  addProjectBtn.addEventListener("click", () => {
+    const input = document.createElement("input");
+    input.classList.add("project-input");
 
-    const quitbtn = document.createElement('button');
-    quitbtn.classList.add('add-project-quit-btn');
-    quitbtn.textContent = 'X';
-    const donebtn = document.createElement('button');
-    donebtn.classList.add('add-project-done-btn');
-    donebtn.textContent = 'done';
+    const quitbtn = document.createElement("button");
+    quitbtn.classList.add("add-project-quit-btn");
+    quitbtn.textContent = "X";
+    const donebtn = document.createElement("button");
+    donebtn.classList.add("add-project-done-btn");
+    donebtn.textContent = "done";
     addProjectBtn.before(input);
 
-    const btndiv = document.createElement('div');
-    btndiv.classList.add('btndiv');
+    const btndiv = document.createElement("div");
+    btndiv.classList.add("btndiv");
     btndiv.appendChild(donebtn);
     btndiv.appendChild(quitbtn);
     addProjectBtn.before(btndiv);
 
-    donebtn.addEventListener('click', () => {
+    donebtn.addEventListener("click", () => {
       createProject();
       btndiv.remove();
       input.remove();
     });
-    quitbtn.addEventListener('click', () => {
+    quitbtn.addEventListener("click", () => {
       btndiv.remove();
       input.remove();
     });
@@ -421,7 +424,7 @@ function addProjectBtn() {
 }
 
 function removeAddProjectBtn() {
-  const addProjectBtnn = document.querySelector('.add-task-btn');
+  const addProjectBtnn = document.querySelector(".add-task-btn");
   addProjectBtnn.remove();
 }
 
@@ -443,16 +446,16 @@ function updateAll() {
 }
 
 function addDefaultProjectsEvent() {
-  const allbtn = document.querySelector('#all-projects-btn');
-  const todaybtn = document.querySelector('#today-projects-btn');
-  const thisweekbtn = document.querySelector('#this-week-projects-btn');
-  allbtn.addEventListener('click', updateAll);
-  todaybtn.addEventListener('click', updateTodayProject);
-  thisweekbtn.addEventListener('click', updateThisWeekProject);
+  const allbtn = document.querySelector("#all-projects-btn");
+  const todaybtn = document.querySelector("#today-projects-btn");
+  const thisweekbtn = document.querySelector("#this-week-projects-btn");
+  allbtn.addEventListener("click", updateAll);
+  todaybtn.addEventListener("click", updateTodayProject);
+  thisweekbtn.addEventListener("click", updateThisWeekProject);
 }
 
 function derenderProject() {
-  const projectDiv = document.querySelector('.project-div');
+  const projectDiv = document.querySelector(".project-div");
   while (projectDiv.firstChild) {
     projectDiv.removeChild(projectDiv.lastChild);
   }

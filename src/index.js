@@ -1,4 +1,4 @@
-import firstRender from './dom_functions';
+import firstRender from "./dom_functions";
 
 firstRender();
 

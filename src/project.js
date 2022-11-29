@@ -1,4 +1,4 @@
-import { compareAsc, isToday, isThisWeek } from 'date-fns';
+import { compareAsc, isToday, isThisWeek } from "date-fns";
 
 export default class Project {
   constructor(name) {
