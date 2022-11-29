@@ -45,6 +45,14 @@ export default class task {
         return this.done;
     }
 
+    setDone(){
+        this.done=true;
+    }
+
+    setNotDone(){
+        this.done=false;
+    }
+
     toggleDone(){
         this.done = !this.done;
     }

@@ -151,7 +151,7 @@ function addEventListenerToTask(task, project) {
         editTask(task, project);
     });
     detailsbtn.addEventListener('click', function () {
-
+        detailsTask(task);
     });
     checkdiv.addEventListener('click', function () {
         task.toggleDone();
@@ -181,9 +181,9 @@ function renderForm(project) {
     const formbtn = document.querySelector('.form-btn');
     const quitbtn = document.querySelector('.quit-btn');
     form.style.display = 'block';
-    const formbutton=formbtn.cloneNode(true)
+    const formbutton = formbtn.cloneNode(true)
     formbtn.replaceWith(formbutton);
-    formbutton.addEventListener('click', function formListener(e){
+    formbutton.addEventListener('click', function formListener(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
         const name = form.elements['name'].value;
@@ -224,9 +224,7 @@ function editTask(task, project) {
     form.style.display = 'block';
     form.elements['name'].value = task.getName();
     form.elements['description'].value = task.getDescription();
-
     form.elements['date'].value = task.getDomDate();
-
     switch (task.getPriority()) {
         case 0:
             form.elements['priority'].value = 'high';
@@ -238,18 +236,16 @@ function editTask(task, project) {
             form.elements['priority'].value = 'low';
             break;
     }
-    form.elements['done'].checked=task.isDone();
+    form.elements['done'].checked = task.isDone();
 
-    const formbutton=formbtn.cloneNode(true)
+    const formbutton = formbtn.cloneNode(true)
     formbtn.replaceWith(formbutton);
-    formbutton.addEventListener('click', function formListener(e){
+    formbutton.addEventListener('click', function formListener(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
         task.setName(form.elements['name'].value);
         task.setDescription(form.elements['description'].value);
-
         task.setDueDate(new Date(form.elements['date'].value));
-
         switch (form.elements['priority'].value) {
             case 'high':
                 task.setPriority(0);
@@ -261,12 +257,60 @@ function editTask(task, project) {
                 task.setPriority(2);
                 break;
         }
+        if(form.elements['done'].checked) task.setDone();
+        else task.setNotDone();
         derenderTasks(project);
         renderTasks(project);
         form.reset();
         form.style.display = 'none';
     });
-    formbutton.textContent='Edit task';
+    formbutton.textContent = 'Edit task';
+    quitbtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        form.reset();
+        form.style.display = 'none';
+    });
+}
+
+function detailsTask(task) {
+    const form = document.querySelector('#task-form');
+    const formbtn = document.querySelector('.form-btn');
+    const quitbtn = document.querySelector('.quit-btn');
+    form.style.display = 'block';
+    form.elements['name'].value = task.getName();
+    form.elements['description'].value = task.getDescription();
+    form.elements['date'].value = task.getDomDate();
+    switch (task.getPriority()) {
+        case 0:
+            form.elements['priority'].value = 'high';
+            break;
+        case 1:
+            form.elements['priority'].value = 'medium';
+            break;
+        case 2:
+            form.elements['priority'].value = 'low';
+            break;
+    }
+    form.elements['done'].checked = task.isDone();
+
+    const select=form.querySelector('select');
+    const input=Array.from(form.querySelectorAll('input'));
+    input.forEach(inp=>inp.disabled=true);
+    select.disabled=true;
+
+    const formbutton = formbtn.cloneNode(true)
+    formbtn.replaceWith(formbutton);
+    formbutton.addEventListener('click', function formListener(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        form.reset();
+        form.style.display = 'none';
+        input.forEach(inp=>inp.disabled=false);
+        select.disabled=false;
+    });
+    formbutton.textContent = 'Done';
+
     quitbtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopImmediatePropagation();
