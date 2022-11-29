@@ -333,10 +333,16 @@ function createProject() {
     const newProjectDiv = document.createElement('button');
     const addProjectBtn = document.querySelector('#add-project-btn');
     const input = nav.querySelector('input');
-
     newProjectDiv.textContent=input.value;
-
-    if(newProjectDiv.textContent) addProjectBtn.before(newProjectDiv);
+    if(!newProjectDiv.textContent) return
+    let project=new Project(input.value);
+    projects.push(project);
+    newProjectDiv.id=projects.length-1;
+    newProjectDiv.addEventListener('click',()=>{
+        derenderProject();
+        renderProject(projects[newProjectDiv.id]);
+    })
+    addProjectBtn.before(newProjectDiv);
 }
 
 

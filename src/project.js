@@ -25,7 +25,6 @@ export default class Project {
 
     addTask(newTask) {
         if (this.tasks.find((task) => task.getName() === newTask.getName())) {
-            console.log("Tasks have to have different names!")
             return
         }
         this.tasks.push(newTask);
